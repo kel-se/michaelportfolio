@@ -9,7 +9,7 @@ const projects = [
       "A dormitory discovery and review platform helping students compare living spaces with confidence.",
     screenshots: ["/Dormly.png", "/Dormly1.png", "/Dormly2.png"],
     techStack: ["React", "Node.js", "Express", "MySQL", "Prisma", "Supabase", "Postman", "Git", "Docker"],
-    github: "https://github.com/",
+    github: "https://github.com/mctorre8720val-eng",
     live: "https://dormly-nu.vercel.app/",
   },
   {
@@ -18,7 +18,7 @@ const projects = [
       "A productivity workspace for managing development tasks, sprints, and personal progress in one place.",
     screenshots: ["/DevTrack.png","/DevTrack1.png","/DevTrack2.png"],
     techStack: ["React", "TypeScript", "Firebase", "Tailwind", "Git"],
-    github: "https://github.com/",
+    github: "https://github.com/mctorre8720val-eng",
     live: "#",
   },
   {
@@ -27,7 +27,7 @@ const projects = [
       "An IoT-inspired concept project focused on intelligent ambient sensing and modern interface design.",
     screenshots: ["/wip.png"],
     techStack: ["Arduino", "ESP32", "Python", "Node.js", "MQTT"],
-    github: "https://github.com/",
+    github: "https://github.com/mctorre8720val-eng",
     live: "#",
   },
   {
@@ -36,7 +36,7 @@ const projects = [
       "A reservation workflow for clinic rooms with clear scheduling and a polished desktop experience.",
     screenshots: ["/wip.png"],
     techStack: ["Java", "Swing", "MySQL", "XAMPP", "NetBeans"],
-    github: "https://github.com/",
+    github: "https://github.com/mctorre8720val-eng",
     live: "#",
   },
 ];

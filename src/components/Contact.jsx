@@ -36,7 +36,7 @@ const contactLinks = [
   },
 ];
 
-const availabilityMessage = "Currently looking for Internship Opportunities (Sample lang))";
+const availabilityMessage = "Currently looking for Internship Opportunities)";
 
 export default function Contact() {
   return (
