@@ -1,9 +1,26 @@
 import { FaDownload } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      const isScrollingDown = currentScrollPos > prevScrollPos;
+
+      setIsNavVisible(!isScrollingDown || currentScrollPos < 50);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
   return (
-    <nav>
+    <nav className={isNavVisible ? "" : "nav-hidden"}>
       
       <div className="logo" style={{ fontSize: "24px", fontWeight: "bold" }} >
         <span style={{ color: "#3b82f6" }}>SWE</span> Michael

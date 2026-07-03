@@ -27,6 +27,7 @@ body {
   background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
   color: var(--primary);
   overflow-x: hidden;
+  padding-top: 80px;
 }
 
 section {
