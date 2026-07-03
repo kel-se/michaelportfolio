@@ -8,7 +8,7 @@ const projects = [
     description:
       "A dormitory discovery and review platform helping students compare living spaces with confidence.",
     screenshots: ["/Dormly.png", "/Dormly1.png", "/Dormly2.png"],
-    techStack: ["React", "Node.js", "Express", "MySQL", "Prisma", "Supabase", "Postman", "Git", "Docker"],
+    techStack: ["React", "Node.js", "Express", "MySQL", "Prisma", "Supabase", "Postman", "Git", "Docker", "CI/CD"],
     github: "https://github.com/mctorre8720val-eng",
     live: "https://dormly-nu.vercel.app/",
   },
@@ -17,7 +17,7 @@ const projects = [
     description:
       "A productivity workspace for managing development tasks, sprints, and personal progress in one place.",
     screenshots: ["/DevTrack.png","/DevTrack1.png","/DevTrack2.png"],
-    techStack: ["React", "TypeScript", "Firebase", "Tailwind", "Git"],
+    techStack: ["React", "TypeScript", "Firebase", "Tailwind", "Git", ],
     github: "https://github.com/mctorre8720val-eng",
     live: "#",
   },
