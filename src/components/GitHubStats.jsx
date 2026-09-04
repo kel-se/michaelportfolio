@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
+const formatGitHubStat = (value) =>
+  value === null || value === undefined ? "—" : value;
+
 export default function GitHubStats() {
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({
+    contributions: null,
+    repositories: null,
+    followers: null,
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -11,15 +18,26 @@ export default function GitHubStats() {
         const response = await fetch("/api/github-contributions");
 
         if (!response.ok) {
-          throw new Error("Failed to fetch GitHub statistics");
+          throw new Error(
+            `Failed to fetch GitHub statistics: ${response.status}`
+          );
         }
 
         const data = await response.json();
 
-        setStats(data);
-      } catch (error) {
-        console.error("GitHub stats error:", error);
+        setStats({
+          contributions: data?.contributions ?? null,
+          repositories: data?.repositories ?? null,
+          followers: data?.followers ?? null,
+        });
+      } catch (fetchError) {
+        console.error("GitHub stats error:", fetchError);
         setError(true);
+        setStats({
+          contributions: null,
+          repositories: null,
+          followers: null,
+        });
       } finally {
         setLoading(false);
       }
@@ -32,6 +50,7 @@ export default function GitHubStats() {
     <section
       id="github-stats"
       className="github-stats-section"
+      aria-live="polite"
     >
       <div className="section-heading">
         <p className="eyebrow">GitHub</p>
@@ -46,11 +65,7 @@ export default function GitHubStats() {
       <div className="github-stats-grid">
         <div className="github-total-stat">
           <strong>
-            {loading
-              ? "..."
-              : error
-              ? "—"
-              : stats?.contributions ?? "0"}
+            {loading ? "..." : error ? "—" : formatGitHubStat(stats.contributions)}
           </strong>
 
           <span>Total Contributions</span>
@@ -58,11 +73,7 @@ export default function GitHubStats() {
 
         <div className="github-total-stat">
           <strong>
-            {loading
-              ? "..."
-              : error
-              ? "—"
-              : stats?.repositories ?? "0"}
+            {loading ? "..." : error ? "—" : formatGitHubStat(stats.repositories)}
           </strong>
 
           <span>Repositories</span>
@@ -70,11 +81,7 @@ export default function GitHubStats() {
 
         <div className="github-total-stat">
           <strong>
-            {loading
-              ? "..."
-              : error
-              ? "—"
-              : stats?.followers ?? "0"}
+            {loading ? "..." : error ? "—" : formatGitHubStat(stats.followers)}
           </strong>
 
           <span>Followers</span>
@@ -84,7 +91,7 @@ export default function GitHubStats() {
       <a
         href="https://github.com/mctorre8720val-eng"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
         className="github-profile-link"
       >
         View GitHub Profile →

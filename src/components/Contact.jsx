@@ -11,21 +11,21 @@ const contactLinks = [
   },
   {
     label: "Email",
-    value: "walamuna@email.com",
-    href: "#",
+    value: "michael.kel@email.com",
+    href: "mailto:michael.kel@email.com",
     icon: FiMail,
     primary: true,
   },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/walamuna",
-    href: "#",
+    value: "linkedin.com/in/michael-kel",
+    href: "https://www.linkedin.com",
     icon: FiLinkedin,
   },
   {
     label: "Facebook",
-    value: "facebook.com/walamuna",
-    href: "#",
+    value: "facebook.com/michael.kel",
+    href: "https://www.facebook.com",
     icon: FiFacebook,
   },
   {
@@ -57,13 +57,13 @@ export default function Contact() {
           </p>
 
           <div className="contact-actions">
-            <a href="#" className="contact-primary-btn">
+            <a href="mailto:michael.kel@email.com" className="contact-primary-btn" aria-label="Send an email to Michael Kel">
               Send me an Email
             </a>
-            <a href="https://github.com/mctorre8720val-eng" className="contact-secondary-btn">
+            <a href="https://github.com/mctorre8720val-eng" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open Michael Kel's GitHub profile in a new tab">
               View GitHub
             </a>
-            <a href="#" className="contact-secondary-btn">
+            <a href="https://www.linkedin.com" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open LinkedIn in a new tab">
               Connect on LinkedIn
             </a>
           </div>
@@ -79,8 +79,8 @@ export default function Contact() {
             const Icon = item.icon;
 
             return (
-              <a key={item.label} href={item.href} className={`contact-link-card ${item.primary ? "primary" : ""}`} target="_blank" rel="noreferrer">
-                <div className="contact-link-icon">
+              <a key={item.label} href={item.href} className={`contact-link-card ${item.primary ? "primary" : ""}`} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined} aria-label={`${item.label}: ${item.value}`}>
+                <div className="contact-link-icon" aria-hidden="true">
                   <Icon />
                 </div>
                 <div>

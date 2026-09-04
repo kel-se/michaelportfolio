@@ -35,8 +35,8 @@ export default function Hero() {
         
         {/* LEFT SIDE: Image */}
         <div className="hero-image">
-          <img src={profile} alt="profile" />
-          <span className="wave">👋</span>
+          <img src={profile} alt="Portrait of Michael Kel" />
+          <span className="wave" aria-hidden="true">👋</span>
         </div>
 
         {/* RIGHT SIDE: Text & Info */}

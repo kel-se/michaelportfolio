@@ -5,23 +5,25 @@ export default function FadeInSection({ children }) {
   const domRef = useRef();
 
   useEffect(() => {
+    const node = domRef.current;
+
+    if (!node) {
+      return undefined;
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(domRef.current);
+          observer.unobserve(node);
         }
       });
     });
 
-    if (domRef.current) {
-      observer.observe(domRef.current);
-    }
+    observer.observe(node);
 
     return () => {
-      if (domRef.current) {
-        observer.unobserve(domRef.current);
-      }
+      observer.unobserve(node);
     };
   }, []);
 

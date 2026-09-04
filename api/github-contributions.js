@@ -1,5 +1,44 @@
 const GITHUB_USERNAME = "mctorre8720val-eng";
 
+async function getPublicFallbackStats() {
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}`,
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          "User-Agent": "portfolio-site",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `GitHub public profile request failed: ${response.status}`
+      );
+    }
+
+    const user = await response.json();
+
+    return {
+      contributions: null,
+      repositories: user.public_repos ?? null,
+      followers: user.followers ?? null,
+    };
+  } catch (error) {
+    console.error(
+      "GitHub public fallback failed:",
+      error
+    );
+
+    return {
+      contributions: null,
+      repositories: null,
+      followers: null,
+    };
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).json({
@@ -10,9 +49,9 @@ export default async function handler(req, res) {
   const token = process.env.GITHUB_TOKEN;
 
   if (!token) {
-    return res.status(500).json({
-      error: "GITHUB_TOKEN is not configured.",
-    });
+    const fallback = await getPublicFallbackStats();
+
+    return res.status(200).json(fallback);
   }
 
   const query = `
@@ -60,23 +99,21 @@ export default async function handler(req, res) {
     if (!response.ok || data.errors) {
       console.error("GitHub GraphQL error:", data);
 
-      return res.status(500).json({
-        error: "Failed to retrieve GitHub data.",
-      });
+      return res.status(200).json(
+        await getPublicFallbackStats()
+      );
     }
 
     const user = data.data.user;
 
     return res.status(200).json({
       contributions:
-        user.contributionsCollection
-          .contributionCalendar.totalContributions,
-
+        user?.contributionsCollection?.contributionCalendar
+          ?.totalContributions ?? null,
       repositories:
-        user.repositories.totalCount,
-
+        user?.repositories?.totalCount ?? null,
       followers:
-        user.followers.totalCount,
+        user?.followers?.totalCount ?? null,
     });
   } catch (error) {
     console.error(
@@ -84,8 +121,8 @@ export default async function handler(req, res) {
       error
     );
 
-    return res.status(500).json({
-      error: "Unable to connect to GitHub.",
-    });
+    return res.status(200).json(
+      await getPublicFallbackStats()
+    );
   }
 }
