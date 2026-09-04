@@ -26,24 +26,16 @@ const projects = [
     github: "https://github.com/mctorre8720val-eng/Dormly",
     live: "https://dormly-nu.vercel.app/",
   },
-
   {
     title: "DevTrack",
     repo: "DevTrack",
     description:
       "A productivity workspace for managing development tasks, sprints, and personal progress in one place.",
     screenshots: ["/DevTrack.png", "/DevTrack1.png", "/DevTrack2.png"],
-    techStack: [
-      "React",
-      "TypeScript",
-      "Firebase",
-      "Tailwind",
-      "Git",
-    ],
+    techStack: ["React", "TypeScript", "Firebase", "Tailwind", "Git"],
     github: "https://github.com/mctorre8720val-eng/DevTrack",
     live: null,
   },
-
   {
     title: "ScentGuard Vent",
     repo: "ScentGuard_new",
@@ -60,20 +52,13 @@ const projects = [
     github: "https://github.com/mctorre8720val-eng/ScentGuard_new",
     live: null,
   },
-
   {
     title: "Clinic Reservation",
     repo: null,
     description:
       "A reservation workflow for clinic rooms with clear scheduling and a polished desktop experience.",
     screenshots: ["/wip.png"],
-    techStack: [
-      "Java",
-      "Swing",
-      "MySQL",
-      "XAMPP",
-      "NetBeans",
-    ],
+    techStack: ["Java", "Swing", "MySQL", "XAMPP", "NetBeans"],
     github: null,
     live: null,
   },
@@ -87,9 +72,6 @@ export default function Projects() {
 
   const currentProject = projects[activeIndex];
 
-  /*
-   * Fetch GitHub statistics for all featured repositories.
-   */
   useEffect(() => {
     const fetchGithubStats = async () => {
       try {
@@ -100,9 +82,13 @@ export default function Projects() {
             .filter((project) => project.repo)
             .map(async (project) => {
               try {
-                const response = await fetch(
-                  `https://api.github.com/repos/${GITHUB_USERNAME}/${project.repo}`
-                );
+                const repoUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${project.repo}`;
+
+                const response = await fetch(repoUrl, {
+                  headers: {
+                    Accept: "application/vnd.github+json",
+                  },
+                });
 
                 if (!response.ok) {
                   throw new Error(
@@ -113,42 +99,37 @@ export default function Projects() {
                 const data = await response.json();
 
                 /*
-                 * Fetch commits separately.
-                 *
-                 * The GitHub API returns commits in pages,
-                 * so we use the Link header to determine
-                 * the final page.
+                 * GitHub's contributors endpoint gives us a more
+                 * reliable contributor/commit count than relying
+                 * on the Link header from /commits.
                  */
-                const commitsResponse = await fetch(
-                  `https://api.github.com/repos/${GITHUB_USERNAME}/${project.repo}/commits?per_page=1`
-                );
-
                 let commits = 0;
 
-                if (commitsResponse.ok) {
-                  const linkHeader =
-                    commitsResponse.headers.get("Link");
-
-                  if (linkHeader) {
-                    const lastPageMatch =
-                      linkHeader.match(
-                        /[?&]page=(\d+)>; rel="last"/
-                      );
-
-                    if (lastPageMatch) {
-                      commits = Number(lastPageMatch[1]);
-                    } else {
-                      const commitsData =
-                        await commitsResponse.json();
-
-                      commits = commitsData.length;
+                try {
+                  const contributorsResponse = await fetch(
+                    `${repoUrl}/contributors?per_page=100`,
+                    {
+                      headers: {
+                        Accept: "application/vnd.github+json",
+                      },
                     }
-                  } else {
-                    const commitsData =
-                      await commitsResponse.json();
+                  );
 
-                    commits = commitsData.length;
+                  if (contributorsResponse.ok) {
+                    const contributors =
+                      await contributorsResponse.json();
+
+                    commits = contributors.reduce(
+                      (total, contributor) =>
+                        total + (contributor.contributions || 0),
+                      0
+                    );
                   }
+                } catch (commitError) {
+                  console.error(
+                    `Failed to load commits for ${project.repo}:`,
+                    commitError
+                  );
                 }
 
                 return {
@@ -181,7 +162,10 @@ export default function Projects() {
 
         setGithubStats(statsObject);
       } catch (error) {
-        console.error("Failed to load GitHub statistics:", error);
+        console.error(
+          "Failed to load GitHub statistics:",
+          error
+        );
       } finally {
         setLoadingStats(false);
       }
@@ -327,7 +311,6 @@ export default function Projects() {
               ))}
             </div>
 
-            {/* GitHub Statistics */}
             {currentProject.repo && (
               <div className="github-project-stats">
                 <div className="github-stat">
@@ -416,9 +399,7 @@ export default function Projects() {
                 key={project.title}
                 type="button"
                 className={`dot ${
-                  index === activeIndex
-                    ? "active"
-                    : ""
+                  index === activeIndex ? "active" : ""
                 }`}
                 onClick={() => goToProject(index)}
                 aria-label={`Show ${project.title}`}
