@@ -49,10 +49,14 @@ export default async function handler(req, res) {
     return res.status(200).json(await getPublicFallbackStats());
   }
 
+  const to = new Date();
+  const from = new Date(to);
+  from.setFullYear(to.getFullYear() - 1);
+
   const query = `
-    query GetGitHubStats($login: String!) {
+    query GetGitHubStats($login: String!, $from: DateTime!, $to: DateTime!) {
       user(login: $login) {
-        contributionsCollection {
+        contributionsCollection(from: $from, to: $to) {
           contributionCalendar {
             totalContributions
           }
@@ -86,6 +90,8 @@ export default async function handler(req, res) {
         query,
         variables: {
           login: GITHUB_USERNAME,
+          from: from.toISOString(),
+          to: to.toISOString(),
         },
       }),
     });
@@ -93,7 +99,11 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok || data.errors) {
-      console.error("GitHub GraphQL error:", data.errors || data);
+      console.error("GitHub GraphQL error:", {
+        status: response.status,
+        statusText: response.statusText,
+        errors: data?.errors ?? data,
+      });
 
       return res.status(200).json({
         ...(await getPublicFallbackStats()),
