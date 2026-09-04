@@ -1,4 +1,5 @@
 import http from "node:http";
+import { spawn } from "node:child_process";
 
 const PORT = 3001;
 const GITHUB_USERNAME = "mctorre8720val-eng";
@@ -98,6 +99,70 @@ async function getGitHubStats() {
   }
 }
 
+async function getProjectGithubRepoStats(repoName) {
+  const token = process.env.GITHUB_TOKEN;
+  const repoUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}`;
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "User-Agent": "portfolio-site",
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  try {
+    const repoResponse = await fetch(repoUrl, { headers });
+    const repoData = await repoResponse.json();
+
+    if (!repoResponse.ok) {
+      throw new Error(
+        `GitHub repo request failed for ${repoName}: ${repoResponse.status} ${repoData?.message ?? ""}`
+      );
+    }
+
+    let commits = 0;
+
+    const contributorsResponse = await fetch(
+      `${repoUrl}/contributors?per_page=100`,
+      { headers }
+    );
+
+    if (contributorsResponse.ok) {
+      const contributors = await contributorsResponse.json();
+      commits = Array.isArray(contributors)
+        ? contributors.reduce(
+            (total, contributor) =>
+              total + (Number(contributor?.contributions) || 0),
+            0
+          )
+        : 0;
+    } else {
+      const contributorData = await contributorsResponse.json().catch(() => ({}));
+      console.warn(
+        `GitHub contributors request for ${repoName} was not ok:`,
+        contributorData
+      );
+    }
+
+    return {
+      repo: repoName,
+      commits,
+      stars: Number(repoData?.stargazers_count ?? 0),
+      forks: Number(repoData?.forks_count ?? 0),
+    };
+  } catch (error) {
+    console.error(`Failed to load GitHub stats for ${repoName}:`, error);
+
+    return {
+      repo: repoName,
+      commits: 0,
+      stars: 0,
+      forks: 0,
+    };
+  }
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
@@ -114,6 +179,28 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (url.pathname === "/api/project-github-stats") {
+    const repoNames = [
+      "Dormly",
+      "DevTrack",
+      "ScentGuard_new",
+    ];
+
+    const statResults = await Promise.all(
+      repoNames.map((repoName) => getProjectGithubRepoStats(repoName))
+    );
+
+    const statsMap = {};
+
+    statResults.forEach((result) => {
+      statsMap[result.repo] = result;
+    });
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(statsMap));
+    return;
+  }
+
   if (url.pathname === "/health") {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ ok: true }));
@@ -126,4 +213,14 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, "0.0.0.0", () => {
   console.log(`Local GitHub API server running on http://localhost:${PORT}`);
+
+  const viteProcess = spawn("npx", ["vite", "--host", "0.0.0.0"], {
+    stdio: "inherit",
+    shell: true,
+  });
+
+  viteProcess.on("exit", (code) => {
+    console.log(`Vite exited with code ${code}`);
+    process.exit(code ?? 0);
+  });
 });

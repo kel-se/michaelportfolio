@@ -77,95 +77,25 @@ export default function Projects() {
       try {
         setLoadingStats(true);
 
-        const results = await Promise.all(
-          projects
-            .filter((project) => project.repo)
-            .map(async (project) => {
-              try {
-                const repoUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${project.repo}`;
-
-                const response = await fetch(repoUrl, {
-                  headers: {
-                    Accept: "application/vnd.github+json",
-                  },
-                });
-
-                if (!response.ok) {
-                  throw new Error(
-                    `GitHub API error: ${response.status}`
-                  );
-                }
-
-                const data = await response.json();
-
-                /*
-                 * GitHub's contributors endpoint gives us a more
-                 * reliable contributor/commit count than relying
-                 * on the Link header from /commits.
-                 */
-                let commits = 0;
-
-                try {
-                  const contributorsResponse = await fetch(
-                    `${repoUrl}/contributors?per_page=100`,
-                    {
-                      headers: {
-                        Accept: "application/vnd.github+json",
-                      },
-                    }
-                  );
-
-                  if (contributorsResponse.ok) {
-                    const contributors =
-                      await contributorsResponse.json();
-
-                    commits = contributors.reduce(
-                      (total, contributor) =>
-                        total + (contributor.contributions || 0),
-                      0
-                    );
-                  }
-                } catch (commitError) {
-                  console.error(
-                    `Failed to load commits for ${project.repo}:`,
-                    commitError
-                  );
-                }
-
-                return {
-                  repo: project.repo,
-                  commits,
-                  stars: data.stargazers_count ?? 0,
-                  forks: data.forks_count ?? 0,
-                };
-              } catch (error) {
-                console.error(
-                  `Failed to load ${project.repo}:`,
-                  error
-                );
-
-                return {
-                  repo: project.repo,
-                  commits: null,
-                  stars: null,
-                  forks: null,
-                };
-              }
-            })
+        const response = await fetch(
+          "/api/project-github-stats"
         );
 
-        const statsObject = {};
+        if (!response.ok) {
+          throw new Error(
+            `GitHub project stats API error: ${response.status}`
+          );
+        }
 
-        results.forEach((result) => {
-          statsObject[result.repo] = result;
-        });
+        const data = await response.json();
 
-        setGithubStats(statsObject);
+        setGithubStats(data ?? {});
       } catch (error) {
         console.error(
-          "Failed to load GitHub statistics:",
+          "Failed to load project GitHub statistics:",
           error
         );
+        setGithubStats({});
       } finally {
         setLoadingStats(false);
       }
