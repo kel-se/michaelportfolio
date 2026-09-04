@@ -9,6 +9,7 @@ import Achievements from "./components/Achievements";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import FadeInSection from "./components/FadeInSection";
+import GitHubStats from "./components/GitHubStats";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ export default function App() {
 
       <FadeInSection>
         <Projects />
+        <GitHubStats />
       </FadeInSection>
 
       <FadeInSection>

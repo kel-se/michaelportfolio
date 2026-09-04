@@ -30,6 +30,15 @@ const achievements = [
     skills: ["Python", "Programming", "Memory", "Problem Solving"],
   },
   {
+    title: "ITS Certificate",
+    issuer: "Cisco Networking Academy",
+    date: "2025",
+    image: "/ITS.png",
+    description:
+      "Built a stronger base in IT support concepts, troubleshooting, and practical digital systems knowledge.",
+    skills: ["IT Support", "Troubleshooting", "Systems", "Technology"],
+  },
+  {
     title: "Endpoint Security",
     issuer: "Cisco Networking Academy",
     date: "2025",
@@ -52,56 +61,43 @@ export default function Achievements() {
       </div>
 
       <div className="featured-showcase">
-        {achievements.map((achievement, index) => {
-          const isReversed = index % 2 === 1;
+        {achievements.map((achievement, index) => (
+          <motion.article
+            key={achievement.title}
+            className="achievement-item"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.03 }}
+          >
+            <div className="achievement-image-wrap">
+              <img src={achievement.image} alt={`${achievement.title} certificate`} loading="lazy" />
+            </div>
 
-          return (
-            <motion.article
-              key={achievement.title}
-              className={`achievement-feature ${isReversed ? "reversed" : ""}`}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.05 }}
-              whileHover={{ y: -6, scale: 1.01 }}
-            >
-              <div className="achievement-media">
-                <div className="achievement-frame">
-                  <div className="achievement-toolbar">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <div className="achievement-image-shell">
-                    <img src={achievement.image} alt={`${achievement.title} certificate`} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="achievement-panel">
-                <p className="featured-label">Featured Achievement</p>
+            <div className="achievement-content">
+              <div className="achievement-title-row">
                 <h3>{achievement.title}</h3>
-
-                <div className="achievement-meta">
-                  <span>{achievement.issuer}</span>
-                  <span>{achievement.date}</span>
-                </div>
-
-                {achievement.description ? <p className="featured-description">{achievement.description}</p> : null}
-
-                {achievement.skills?.length ? (
-                  <div className="tech-stack">
-                    {achievement.skills.map((skill) => (
-                      <span key={skill} className="tech-chip">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
+                <span className="achievement-date">{achievement.date}</span>
               </div>
-            </motion.article>
-          );
-        })}
+
+              <div className="achievement-meta">
+                <span>{achievement.issuer}</span>
+              </div>
+
+              {achievement.description ? <p className="achievement-description">{achievement.description}</p> : null}
+
+              {achievement.skills?.length ? (
+                <div className="tech-stack">
+                  {achievement.skills.map((skill) => (
+                    <span key={skill} className="tech-chip">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </motion.article>
+        ))}
       </div>
     </section>
   );
