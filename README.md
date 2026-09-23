@@ -1,16 +1,107 @@
-# React + Vite
+# Michael's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built with **React** and **Vite** to showcase my projects, skills, experience, and certifications as a BSIT student.
 
-Currently, two official plugins are available:
+## 🚀 Live Portfolio
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**[View my portfolio](https://michaelportfolio.vercel.app/)**
 
-## React Compiler
+## 👨‍💻 About
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I am a **Bachelor of Science in Information Technology (BSIT)** student interested in software development, web development, mobile applications, and IoT-based systems.
 
-## Expanding the ESLint configuration
+This portfolio highlights selected academic and personal projects, technical skills, certifications, and experience.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Built With
+
+* React
+* Vite
+* JavaScript
+* HTML
+* CSS
+* Git & GitHub
+* Vercel
+
+## 📌 Featured Project
+
+### ScentGuard Vent
+
+**ScentGuard Vent** is an odor-responsive smart ventilation system designed for small- to medium-sized restaurant garbage storage areas.
+
+The system uses an **ESP32**, **MQ-135 gas sensor**, **DHT11 temperature sensor**, relay-controlled ventilation, Firebase, and an Android application to monitor environmental conditions and automate ventilation.
+
+### Other Areas
+
+* 🌐 Web Development
+* 📱 Android Development
+* 🔌 IoT & Embedded Systems
+* ☁️ Firebase
+* 🗄️ Database Management
+* 🎨 UI/UX Design
+
+## 📜 Certifications
+
+* ITS Python
+* ITS Networking
+* Cisco CCST Networking
+
+## 💼 Experience
+
+### VXI Global Solutions
+
+**OJT / Internship — Hiring Department**
+
+Completed **80 hours** of on-the-job training and gained experience in a professional work environment.
+
+## 📂 Project Structure
+
+```text
+portfolio/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mctorre8720val-eng/portfolio.git
+cd portfolio
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+Open the local URL shown in your terminal.
+
+### 4. Build for production
+
+```bash
+npm run build
+```
+
+## 📄 License
+
+This project is for personal portfolio purposes.
+
+---
+
+Built with React + Vite by **Michael**.
