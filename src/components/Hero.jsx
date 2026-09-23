@@ -25,8 +25,26 @@ import {
 } from "react-icons/si";
 
 import { DiVisualstudio } from "react-icons/di";
-
 import { MdVerified } from "react-icons/md";
+
+const SKILLS_LIST = [
+  { name: "HTML5", icon: FaHtml5 },
+  { name: "CSS3", icon: FaCss3Alt },
+  { name: "JavaScript", icon: FaJs },
+  { name: "React.js", icon: FaReact },
+  { name: "Node.js", icon: FaNodeJs },
+  { name: "Express.js", icon: SiExpress },
+  { name: "MongoDB", icon: SiMongodb },
+  { name: "Java", icon: FaJava },
+  { name: "Kotlin", icon: SiKotlin },
+  { name: "Android Studio", icon: SiAndroidstudio },
+  { name: "MySQL", icon: SiMysql },
+  { name: "VS Code", icon: DiVisualstudio },
+  { name: "Vite", icon: SiVite },
+  { name: "npm", icon: SiNpm },
+  { name: "GitHub", icon: FaGithub },
+  { name: "Firebase", icon: SiFirebase },
+];
 
 export default function Hero() {
   return (
@@ -41,13 +59,19 @@ export default function Hero() {
 
         {/* RIGHT SIDE: Text & Info */}
         <div className="hero-text">
-          <h2 className="hero-title">
+          <h1 className="hero-title">
             HELLO, I'M <span>KEL</span>
-            <MdVerified className="hero-verified-icon" />
-          </h2>
+            <span className="verified-badge" aria-hidden="true" title="Verified Developer">
+              <MdVerified className="hero-verified-icon" />
+            </span>
+          </h1>
 
-          <h5 className="subtitle">Software Engineer | Aspiring LLM Engineer</h5>
-          <h5 className="subtitle">BSIT Student | Web & Android Developer</h5>
+          <p className="subtitle subtitle-primary">
+            Software Engineer | Aspiring LLM Engineer
+          </p>
+          <p className="subtitle subtitle-secondary">
+            BSIT Student | Web & Android Developer
+          </p>
 
           <p className="description">
             BSIT student specializing in Full-Stack development and IoT (Internet of Things) solutions. I build modern web and mobile applications using the MERN stack, while also diving into embedded systems. My hands-on experience includes writing firmware for microcontrollers like the ESP32 and Arduino, allowing me to bridge the gap between software development and hardware connectivity.
@@ -57,112 +81,53 @@ export default function Hero() {
             <p className="skills-title">Languages & Tools</p>
 
             <div className="skills-grid">
-              <div className="skill-item">
-                <FaHtml5 />
-                <span>HTML5</span>
-              </div>
-
-              <div className="skill-item">
-                <FaCss3Alt />
-                <span>CSS3</span>
-              </div>
-
-              <div className="skill-item">
-                <FaJs />
-                <span>JavaScript</span>
-              </div>
-
-              <div className="skill-item">
-                <FaReact />
-                <span>React.js</span>
-              </div>
-
-              <div className="skill-item">
-                <FaNodeJs />
-                <span>Node.js</span>
-              </div>
-
-              <div className="skill-item">
-                <SiExpress />
-                <span>Express.js</span>
-              </div>
-
-              <div className="skill-item">
-                <SiMongodb />
-                <span>MongoDB</span>
-              </div>
-
-              <div className="skill-item">
-                <FaJava />
-                <span>Java</span>
-              </div>
-
-              <div className="skill-item">
-                <SiKotlin />
-                <span>Kotlin</span>
-              </div>
-
-              <div className="skill-item">
-                <SiAndroidstudio />
-                <span>Android Studio</span>
-              </div>
-
-              <div className="skill-item">
-                <SiMysql />
-                <span>MySQL</span>
-              </div>
-
-              <div className="skill-item">
-                <DiVisualstudio />
-                <span>VS Code</span>
-              </div>
-
-              <div className="skill-item">
-                <SiVite />
-                <span>Vite</span>
-              </div>
-
-              <div className="skill-item">
-                <SiNpm />
-                <span>npm</span>
-              </div>
-
-              <div className="skill-item">
-                <FaGithub />
-                <span>GitHub</span>
-              </div>
-
-              <div className="skill-item">
-                <SiFirebase />
-                <span>Firebase</span>
-              </div>
+              {SKILLS_LIST.map(({ name, icon: IconComponent }) => (
+                <div key={name} className="skill-item">
+                  <span className="skill-icon" aria-hidden="true">
+                    <IconComponent />
+                  </span>
+                  <span className="skill-name">{name}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <p className="contact-label">Contact me</p>
+          <div className="hero-contact-group">
+            <p className="contact-label">Contact me</p>
 
-          <div className="social-icons">
-            <a href="https://github.com/kel-se" target="_blank" rel="noreferrer">
-              <FaGithub size={26} />
-            </a>
+            <div className="social-icons">
+              <a
+                href="https://github.com/kel-se"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub Profile"
+              >
+                <FaGithub size={24} />
+              </a>
 
-            <a href="#" target="_blank" rel="noreferrer">
-              <FaLinkedin size={26} />
-            </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn Profile"
+              >
+                <FaLinkedin size={24} />
+              </a>
 
-            <a href="#">
-              <SiGmail size={26} />
-            </a>
+              <a href="#" aria-label="Gmail">
+                <SiGmail size={24} />
+              </a>
+            </div>
+
+            <button
+              className="btn"
+              onClick={() => {
+                document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Learn more about Kel
+            </button>
           </div>
-
-          <button
-            className="btn"
-            onClick={() => {
-              document.getElementById("about").scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Learn more about Kel
-          </button>
         </div>
 
       </div>

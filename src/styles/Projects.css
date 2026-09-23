@@ -3,6 +3,11 @@
   padding: 72px 34px;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+  box-sizing: border-box;
 }
 
 #projects::before {
@@ -252,7 +257,7 @@
 @media (max-width: 640px) {
   #projects {
     padding: 54px 18px;
-    border-radius: 22px;
+    border-radius: 0;
   }
 
   .featured-preview {

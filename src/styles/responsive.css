@@ -1,10 +1,38 @@
 @media (min-width: 1025px) {
-  nav,
+  section,
   .hero,
   #about,
-  #projects {
-    padding-left: 370px;
-    padding-right: 330px;
+  #projects,
+  #contact,
+  .achievements-section,
+  .github-contributions-section {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+
+  .hero-container,
+  .about-container,
+  .featured-showcase,
+  .contact-shell,
+  .section-heading,
+  .github-contributions-container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  nav {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 20px 40px;
+    max-width: 1200px;
   }
 }
 

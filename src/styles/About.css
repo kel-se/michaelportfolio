@@ -4,6 +4,11 @@
   position: relative;
   overflow: hidden;
   color: white;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+  box-sizing: border-box;
 }
 
 #about,

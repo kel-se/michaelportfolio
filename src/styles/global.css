@@ -26,8 +26,9 @@ html {
 body {
   background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
   color: var(--primary);
-  overflow-x: hidden;
+  min-height: 100vh;
   padding-top: 80px;
+  width: 100%;
 }
 
 section {
