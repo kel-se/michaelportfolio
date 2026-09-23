@@ -142,13 +142,28 @@ a:focus-visible {
 }
 
 .github-contributions-container {
+  width: 95%;
   max-width: 900px;
   margin: 2rem auto 0;
-  padding: 1.5rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
   background-color: #0d1117;
   border: 1px solid #21262d;
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .github-contributions-container {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .github-calendar-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
 }
 
 .github-graph-wrapper {
@@ -160,72 +175,133 @@ a:focus-visible {
   justify-content: center;
 }
 
-.github-graph-wrapper svg {
-  background-color: transparent !important;
-  max-width: 100%;
-  height: auto;
+.github-calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* GitHub Official Dark Mode Contribution Palette */
-.github-graph-wrapper svg rect[data-score="0"],
-.github-graph-wrapper svg rect[data-level="0"],
-.github-graph-wrapper svg rect[style*="fill:#161b22"],
-.github-graph-wrapper svg rect[style*="fill:#eeeeee"] {
-  fill: #161b22 !important;
+.github-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #8b949e;
+  padding: 0 0.5rem;
 }
 
-.github-graph-wrapper svg rect[data-score="1"],
-.github-graph-wrapper svg rect[data-level="1"],
-.github-graph-wrapper svg rect[style*="fill:#0e4429"],
-.github-graph-wrapper svg rect[style*="fill:#c6e48b"] {
-  fill: #0e4429 !important;
+.github-total-count {
+  color: #c9d1d9;
 }
 
-.github-graph-wrapper svg rect[data-score="2"],
-.github-graph-wrapper svg rect[data-level="2"],
-.github-graph-wrapper svg rect[style*="fill:#006d32"],
-.github-graph-wrapper svg rect[style*="fill:#7bc96f"] {
-  fill: #006d32 !important;
+.github-total-count strong {
+  color: #39d353;
 }
 
-.github-graph-wrapper svg rect[data-score="3"],
-.github-graph-wrapper svg rect[data-level="3"],
-.github-graph-wrapper svg rect[style*="fill:#26a641"],
-.github-graph-wrapper svg rect[style*="fill:#239a3b"] {
-  fill: #26a641 !important;
+.github-svg-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 0;
 }
 
-.github-graph-wrapper svg rect[data-score="4"],
-.github-graph-wrapper svg rect[data-level="4"],
-.github-graph-wrapper svg rect[style*="fill:#39d353"],
-.github-graph-wrapper svg rect[style*="fill:#196127"] {
-  fill: #39d353 !important;
+.github-calendar-svg {
+  display: block;
+  min-width: 680px;
+  margin: 0 auto;
 }
 
-.github-graph-wrapper svg text {
-  fill: #8b949e !important;
+.contribution-square {
+  transition: transform 0.1s ease, stroke 0.1s ease;
+  cursor: pointer;
+}
+
+.contribution-square:hover {
+  stroke: #58a6ff;
+  stroke-width: 1.5px;
+}
+
+.github-calendar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #8b949e;
+  padding: 0.25rem 0.5rem 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.github-tooltip-info {
+  font-size: 0.8rem;
+  color: #58a6ff;
+  min-height: 1.2rem;
+}
+
+.github-tooltip-placeholder {
+  color: #8b949e;
+  font-style: italic;
+}
+
+.github-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.github-legend-squares {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.2rem;
+}
+
+.github-legend-squares li {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .github-graph-loading-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   width: 100%;
-  max-width: 663px;
-  height: 104px;
-  background-color: #161b22;
-  border-radius: 6px;
-  margin: 0 auto;
+  min-height: 120px;
+  color: #8b949e;
+  font-size: 0.875rem;
 }
 
-.github-graph-image {
-  min-width: 660px;
+.github-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #21262d;
+  border-top-color: #239a3b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.github-graph-fallback-img {
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.github-fallback-chart {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 0 auto;
-}
-
-.github-graph-fallback {
-  padding: 2.5rem 1rem;
-  text-align: center;
-  color: var(--text-muted, #64748b);
-  font-size: 0.95rem;
+  border-radius: 6px;
 }
