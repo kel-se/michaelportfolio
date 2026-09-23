@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import "../styles/Projects.css";
 
-const GITHUB_USERNAME = "mctorre8720val-eng";
+const GITHUB_USERNAME = "kel-se";
 
 const projects = [
   {
@@ -23,7 +23,7 @@ const projects = [
       "Docker",
       "CI/CD",
     ],
-    github: "https://github.com/mctorre8720val-eng/Dormly",
+    github: `https://github.com/${GITHUB_USERNAME}/Dormly`,
     live: "https://dormly-nu.vercel.app/",
   },
   {
@@ -33,7 +33,7 @@ const projects = [
       "A productivity workspace for managing development tasks, sprints, and personal progress in one place.",
     screenshots: ["/DevTrack.png", "/DevTrack1.png", "/DevTrack2.png"],
     techStack: ["React", "TypeScript", "Firebase", "Tailwind", "Git"],
-    github: "https://github.com/mctorre8720val-eng/DevTrack",
+    github: `https://github.com/${GITHUB_USERNAME}/DevTrack`,
     live: null,
   },
   {
@@ -49,7 +49,7 @@ const projects = [
       "ESP32",
       "MQ135",
     ],
-    github: "https://github.com/mctorre8720val-eng/ScentGuard_new",
+    github: `https://github.com/${GITHUB_USERNAME}/ScentGuard_new`,
     live: null,
   },
   {
@@ -67,116 +67,8 @@ const projects = [
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [imageIndex, setImageIndex] = useState(0);
-  const [githubStats, setGithubStats] = useState({});
-  const [loadingStats, setLoadingStats] = useState(true);
 
   const currentProject = projects[activeIndex];
-
-  useEffect(() => {
-    const fetchGithubStats = async () => {
-      try {
-        setLoadingStats(true);
-
-        const results = await Promise.all(
-          projects
-            .filter((project) => project.repo)
-            .map(async (project) => {
-              try {
-                const repoUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${project.repo}`;
-
-                const response = await fetch(repoUrl, {
-                  headers: {
-                    Accept: "application/vnd.github+json",
-                  },
-                });
-
-                if (!response.ok) {
-                  throw new Error(
-                    `GitHub API error: ${response.status}`
-                  );
-                }
-
-                const data = await response.json();
-
-                /*
-                 * GitHub's contributors endpoint gives us a more
-                 * reliable contributor/commit count than relying
-                 * on the Link header from /commits.
-                 */
-                let commits = 0;
-
-                try {
-                  const contributorsResponse = await fetch(
-                    `${repoUrl}/contributors?per_page=100`,
-                    {
-                      headers: {
-                        Accept: "application/vnd.github+json",
-                      },
-                    }
-                  );
-
-                  if (contributorsResponse.ok) {
-                    const contributors =
-                      await contributorsResponse.json();
-
-                    commits = contributors.reduce(
-                      (total, contributor) =>
-                        total + (contributor.contributions || 0),
-                      0
-                    );
-                  }
-                } catch (commitError) {
-                  console.error(
-                    `Failed to load commits for ${project.repo}:`,
-                    commitError
-                  );
-                }
-
-                return {
-                  repo: project.repo,
-                  commits,
-                  stars: data.stargazers_count ?? 0,
-                  forks: data.forks_count ?? 0,
-                };
-              } catch (error) {
-                console.error(
-                  `Failed to load ${project.repo}:`,
-                  error
-                );
-
-                return {
-                  repo: project.repo,
-                  commits: null,
-                  stars: null,
-                  forks: null,
-                };
-              }
-            })
-        );
-
-        const statsObject = {};
-
-        results.forEach((result) => {
-          statsObject[result.repo] = result;
-        });
-
-        setGithubStats(statsObject);
-      } catch (error) {
-        console.error(
-          "Failed to load GitHub statistics:",
-          error
-        );
-      } finally {
-        setLoadingStats(false);
-      }
-    };
-
-    fetchGithubStats();
-  }, []);
-
-  const currentStats = currentProject.repo
-    ? githubStats[currentProject.repo]
-    : null;
 
   const showPrev = () => {
     const nextIndex =
@@ -310,37 +202,6 @@ export default function Projects() {
                 </span>
               ))}
             </div>
-
-            {currentProject.repo && (
-              <div className="github-project-stats">
-                <div className="github-stat">
-                  <strong>
-                    {loadingStats
-                      ? "..."
-                      : currentStats?.commits ?? "—"}
-                  </strong>
-                  <span>Commits</span>
-                </div>
-
-                <div className="github-stat">
-                  <strong>
-                    {loadingStats
-                      ? "..."
-                      : currentStats?.stars ?? "—"}
-                  </strong>
-                  <span>Stars</span>
-                </div>
-
-                <div className="github-stat">
-                  <strong>
-                    {loadingStats
-                      ? "..."
-                      : currentStats?.forks ?? "—"}
-                  </strong>
-                  <span>Forks</span>
-                </div>
-              </div>
-            )}
 
             <div className="project-actions">
               {currentProject.github ? (

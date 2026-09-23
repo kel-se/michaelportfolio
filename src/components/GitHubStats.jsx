@@ -1,101 +1,80 @@
 import { useEffect, useState } from "react";
 
-const formatGitHubStat = (value) =>
-  value === null || value === undefined ? "—" : value;
+function transformSvgToGitHubDark(svgText) {
+  if (!svgText) return "";
+  return svgText
+    .replace(/fill:#eeeeee/gi, "fill:#161b22")
+    .replace(/fill:#c6e48b/gi, "fill:#0e4429")
+    .replace(/fill:#7bc96f/gi, "fill:#006d32")
+    .replace(/fill:#239a3b/gi, "fill:#26a641")
+    .replace(/fill:#196127/gi, "fill:#39d353")
+    .replace(/fill:#767676/gi, "fill:#8b949e");
+}
 
 export default function GitHubStats() {
-  const [stats, setStats] = useState({
-    contributions: null,
-    repositories: null,
-    followers: null,
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [svgContent, setSvgContent] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    const fetchStats = async () => {
+    let isMounted = true;
+
+    async function loadSvg() {
       try {
-        const response = await fetch("/api/github-contributions");
-
+        const response = await fetch("https://ghchart.rshah.org/kel-se");
         if (!response.ok) {
-          throw new Error(
-            `Failed to fetch GitHub statistics: ${response.status}`
-          );
+          throw new Error(`Failed to load contribution graph: ${response.status}`);
         }
-
-        const data = await response.json();
-
-        setStats({
-          contributions: data?.contributions ?? null,
-          repositories: data?.repositories ?? null,
-          followers: data?.followers ?? null,
-        });
-      } catch (fetchError) {
-        console.error("GitHub stats error:", fetchError);
-        setError(true);
-        setStats({
-          contributions: null,
-          repositories: null,
-          followers: null,
-        });
-      } finally {
-        setLoading(false);
+        const text = await response.text();
+        if (isMounted && text.includes("<svg")) {
+          setSvgContent(transformSvgToGitHubDark(text));
+        } else if (isMounted) {
+          setHasError(true);
+        }
+      } catch (err) {
+        console.error("GitHub chart inline fetch error:", err);
+        if (isMounted) {
+          setHasError(true);
+        }
       }
-    };
+    }
 
-    fetchStats();
+    loadSvg();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
     <section
-      id="github-stats"
-      className="github-stats-section"
-      aria-live="polite"
+      id="github-contributions"
+      className="github-contributions-section"
+      aria-label="GitHub Contribution Activity"
     >
       <div className="section-heading">
         <p className="eyebrow">GitHub</p>
-
-        <h2>GitHub Activity</h2>
-
+        <h2 className="github-contributions-heading">Contribution Activity</h2>
         <p className="section-copy">
-          A look at my activity and contributions across GitHub.
+          A snapshot of my coding activity and contributions on GitHub.
         </p>
       </div>
 
-      <div className="github-stats-grid">
-        <div className="github-total-stat">
-          <strong>
-            {loading ? "..." : error ? "—" : formatGitHubStat(stats.contributions)}
-          </strong>
-
-          <span>Total Contributions</span>
-        </div>
-
-        <div className="github-total-stat">
-          <strong>
-            {loading ? "..." : error ? "—" : formatGitHubStat(stats.repositories)}
-          </strong>
-
-          <span>Repositories</span>
-        </div>
-
-        <div className="github-total-stat">
-          <strong>
-            {loading ? "..." : error ? "—" : formatGitHubStat(stats.followers)}
-          </strong>
-
-          <span>Followers</span>
-        </div>
+      <div className="github-contributions-container">
+        {svgContent ? (
+          <div
+            className="github-graph-wrapper"
+            dangerouslySetInnerHTML={{ __html: svgContent }}
+          />
+        ) : hasError ? (
+          <div className="github-graph-fallback">
+            <p>Contribution graph unavailable.</p>
+          </div>
+        ) : (
+          <div className="github-graph-wrapper">
+            <div className="github-graph-loading-placeholder" />
+          </div>
+        )}
       </div>
-
-      <a
-        href="https://github.com/mctorre8720val-eng"
-        target="_blank"
-        rel="noreferrer noopener"
-        className="github-profile-link"
-      >
-        View GitHub Profile →
-      </a>
     </section>
   );
 }

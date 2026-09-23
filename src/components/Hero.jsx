@@ -142,7 +142,7 @@ export default function Hero() {
           <p className="contact-label">Contact me</p>
 
           <div className="social-icons">
-            <a href="https://github.com/mctorre8720val-eng" target="_blank" rel="noreferrer">
+            <a href="https://github.com/kel-se" target="_blank" rel="noreferrer">
               <FaGithub size={26} />
             </a>
 

@@ -5,8 +5,8 @@ import "../styles/Contact.css";
 const contactLinks = [
   {
     label: "GitHub",
-    value: "github.com/mctorre",
-    href: "https://github.com/mctorre8720val-eng",
+    value: "github.com/kel-se",
+    href: "https://github.com/kel-se",
     icon: FiGithub,
   },
   {
@@ -60,7 +60,7 @@ export default function Contact() {
             <a href="mailto:michael.kel@email.com" className="contact-primary-btn" aria-label="Send an email to Michael Kel">
               Send me an Email
             </a>
-            <a href="https://github.com/mctorre8720val-eng" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open Michael Kel's GitHub profile in a new tab">
+            <a href="https://github.com/kel-se" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open Michael Kel's GitHub profile in a new tab">
               View GitHub
             </a>
             <a href="https://www.linkedin.com" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open LinkedIn in a new tab">
