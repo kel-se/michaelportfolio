@@ -130,16 +130,10 @@ a:focus-visible {
 }
 
 .github-contributions-heading {
-  color: #000000;
+  color: #000000 !important;
   font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  .github-contributions-heading {
-    color: var(--heading-color, #ffffff);
-  }
 }
 
 .github-contributions-container {

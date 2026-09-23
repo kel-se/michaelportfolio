@@ -19,7 +19,8 @@
   .featured-showcase,
   .contact-shell,
   .section-heading,
-  .github-contributions-container {
+  .github-contributions-container,
+  .nav-container {
     width: 100%;
     max-width: 1200px;
     margin-left: auto;
@@ -30,9 +31,10 @@
   nav {
     left: 0;
     right: 0;
-    margin: 0 auto;
-    padding: 20px 40px;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
 

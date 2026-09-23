@@ -120,12 +120,12 @@ export default function Hero() {
             </div>
 
             <button
-              className="btn"
+              className="hero-learn-btn"
               onClick={() => {
                 document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              Learn more about Kel
+              Learn more about Kel →
             </button>
           </div>
         </div>

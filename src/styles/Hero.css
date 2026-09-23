@@ -169,6 +169,27 @@
   transform: translateY(-2px);
 }
 
+.hero-learn-btn {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--accent, #3b82f6);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.hero-learn-btn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
 .hero-image {
   flex: 0 1 380px;
   min-width: 0;
