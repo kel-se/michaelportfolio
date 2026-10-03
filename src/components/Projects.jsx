@@ -6,6 +6,27 @@ const GITHUB_USERNAME = "kel-se";
 
 const projects = [
   {
+    title: "ScentGuard Vent",
+    repo: "ScentGuard_new",
+    description:
+      "An odor-responsive smart ventilation system designed to monitor air quality and temperature in restaurant garbage storage rooms.",
+    screenshots: [
+      "/ScentGuard.png",
+      "/ScentGuard_dashboard.png",
+      "/ScentGuard_Reports.png",
+      "/ScentGuard_staff.png",
+    ],
+    techStack: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Firebase",
+      "ESP32",
+      "MQ135",
+    ],
+    github: `https://github.com/${GITHUB_USERNAME}/ScentGuard_new`,
+    live: null,
+  },
+  {
     title: "Dormly",
     repo: "Dormly",
     description:
@@ -37,27 +58,11 @@ const projects = [
     live: null,
   },
   {
-    title: "ScentGuard Vent",
-    repo: "ScentGuard_new",
-    description:
-      "An odor-responsive smart ventilation system designed to monitor air quality and temperature in restaurant garbage storage rooms.",
-    screenshots: ["/wip.png"],
-    techStack: [
-      "Kotlin",
-      "Jetpack Compose",
-      "Firebase",
-      "ESP32",
-      "MQ135",
-    ],
-    github: `https://github.com/${GITHUB_USERNAME}/ScentGuard_new`,
-    live: null,
-  },
-  {
     title: "Clinic Reservation",
     repo: null,
     description:
       "A reservation workflow for clinic rooms with clear scheduling and a polished desktop experience.",
-    screenshots: ["/wip.png"],
+    screenshots: ["/ClinicReservation.png"],
     techStack: ["Java", "Swing", "MySQL", "XAMPP", "NetBeans"],
     github: null,
     live: null,
@@ -69,6 +74,9 @@ export default function Projects() {
   const [imageIndex, setImageIndex] = useState(0);
 
   const currentProject = projects[activeIndex];
+  const screenshots = currentProject?.screenshots?.length
+    ? currentProject.screenshots
+    : ["/wip.png"];
 
   const showPrev = () => {
     const nextIndex =
@@ -93,16 +101,14 @@ export default function Projects() {
 
   const showPrevImage = () => {
     const next =
-      (imageIndex - 1 + currentProject.screenshots.length) %
-      currentProject.screenshots.length;
+      (imageIndex - 1 + screenshots.length) % screenshots.length;
 
     setImageIndex(next);
   };
 
   const showNextImage = () => {
     const next =
-      (imageIndex + 1) %
-      currentProject.screenshots.length;
+      (imageIndex + 1) % screenshots.length;
 
     setImageIndex(next);
   };
@@ -143,7 +149,7 @@ export default function Projects() {
             <div className="preview-image-shell">
               <motion.img
                 key={`${currentProject.title}-${imageIndex}`}
-                src={currentProject.screenshots[imageIndex]}
+                src={screenshots[imageIndex] || "/wip.png"}
                 alt={`${currentProject.title} screenshot ${
                   imageIndex + 1
                 }`}
@@ -153,7 +159,7 @@ export default function Projects() {
               />
             </div>
 
-            {currentProject.screenshots.length > 1 ? (
+            {screenshots.length > 1 ? (
               <div className="preview-controls">
                 <button
                   type="button"
@@ -165,8 +171,7 @@ export default function Projects() {
                 </button>
 
                 <span className="preview-counter">
-                  {imageIndex + 1}/
-                  {currentProject.screenshots.length}
+                  {imageIndex + 1}/{screenshots.length}
                 </span>
 
                 <button
