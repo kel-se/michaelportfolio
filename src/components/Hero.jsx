@@ -74,7 +74,7 @@ export default function Hero() {
           </p>
 
           <p className="description">
-            BSIT student specializing in Full-Stack development and IoT (Internet of Things) solutions. I build modern web and mobile applications using the MERN stack, while also diving into embedded systems. My hands-on experience includes writing firmware for microcontrollers like the ESP32 and Arduino, allowing me to bridge the gap between software development and hardware connectivity.
+            BSIT student specializing in <strong>Full-Stack Development</strong>, with a strong focus on <strong>backend systems and mobile application development</strong>. I build modern web and mobile applications using technologies such as <strong>Node.js, Express, React, Kotlin, Flutter, and Firebase</strong>. My experience includes developing <strong>REST APIs, database-driven applications, authentication systems, and scalable backend services</strong>, while also creating functional and user-friendly mobile experiences.
           </p>
 
           <div className="skills-block">
