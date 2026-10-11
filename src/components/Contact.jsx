@@ -36,14 +36,14 @@ const contactLinks = [
   },
 ];
 
-const availabilityMessage = "Currently looking for Internship Opportunities)";
+const availabilityMessage = "Currently looking for Internship Opportunities";
 
 export default function Contact() {
   return (
     <section id="contact" className="contact-section">
       <motion.div
         className="contact-shell"
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
@@ -58,19 +58,22 @@ export default function Contact() {
 
           <div className="contact-actions">
             <a href="mailto:michael.kel@email.com" className="contact-primary-btn" aria-label="Send an email to Michael Kel">
-              Send me an Email
+              <FiMail size={16} />
+              <span>Send me an Email</span>
             </a>
             <a href="https://github.com/kel-se" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open Michael Kel's GitHub profile in a new tab">
-              View GitHub
+              <FiGithub size={16} />
+              <span>View GitHub</span>
             </a>
             <a href="https://www.linkedin.com" className="contact-secondary-btn" target="_blank" rel="noreferrer noopener" aria-label="Open LinkedIn in a new tab">
-              Connect on LinkedIn
+              <FiLinkedin size={16} />
+              <span>LinkedIn</span>
             </a>
           </div>
 
           <div className="availability-badge">
             <span className="availability-dot" />
-            {availabilityMessage}
+            <span>{availabilityMessage}</span>
           </div>
         </div>
 
@@ -79,9 +82,16 @@ export default function Contact() {
             const Icon = item.icon;
 
             return (
-              <a key={item.label} href={item.href} className={`contact-link-card ${item.primary ? "primary" : ""}`} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined} aria-label={`${item.label}: ${item.value}`}>
+              <a
+                key={item.label}
+                href={item.href}
+                className={`contact-link-card ${item.primary ? "primary" : ""}`}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined}
+                aria-label={`${item.label}: ${item.value}`}
+              >
                 <div className="contact-link-icon" aria-hidden="true">
-                  <Icon />
+                  <Icon size={18} />
                 </div>
                 <div>
                   <p className="contact-link-label">{item.label}</p>

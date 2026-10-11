@@ -6,7 +6,7 @@ export default function Loader({ finishLoading }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       finishLoading();
-    }, 3200);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [finishLoading]);
@@ -21,7 +21,7 @@ export default function Loader({ finishLoading }) {
       exit={{
         y: "-100%",
         transition: {
-          duration: 0.8,
+          duration: 0.6,
           ease: [0.76, 0, 0.24, 1],
         },
       }}
@@ -32,9 +32,9 @@ export default function Loader({ finishLoading }) {
             <motion.span
               key={index}
               initial={{
-                y: 80,
+                y: 35,
                 opacity: 0,
-                filter: "blur(10px)",
+                filter: "blur(6px)",
               }}
               animate={{
                 y: 0,
@@ -42,8 +42,8 @@ export default function Loader({ finishLoading }) {
                 filter: "blur(0px)",
               }}
               transition={{
-                delay: index * 0.08,
-                duration: 0.8,
+                delay: index * 0.05,
+                duration: 0.5,
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
@@ -57,15 +57,15 @@ export default function Loader({ finishLoading }) {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{
-            delay: 0.8,
-            duration: 0.7,
+            delay: 0.45,
+            duration: 0.5,
             ease: "easeInOut",
           }}
         />
 
         <motion.p
           initial={{
-            y: 20,
+            y: 12,
             opacity: 0,
           }}
           animate={{
@@ -73,11 +73,11 @@ export default function Loader({ finishLoading }) {
             opacity: 1,
           }}
           transition={{
-            delay: 1.2,
-            duration: 0.6,
+            delay: 0.65,
+            duration: 0.5,
           }}
         >
-          React • Vite • Node.js • Express • Flutter • MongoDB • Prisma • Git • Docker • Vercel
+          Full-Stack Developer • Web & Mobile
         </motion.p>
       </div>
     </motion.div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { FiChevronLeft, FiChevronRight, FiExternalLink, FiGithub } from "react-icons/fi";
 import "../styles/Projects.css";
 
 const GITHUB_USERNAME = "kel-se";
@@ -119,7 +120,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects">
+    <section id="projects" className="projects-section">
       <div className="section-heading project-section-heading">
         <p className="eyebrow">Selected work</p>
 
@@ -136,11 +137,11 @@ export default function Projects() {
         <motion.div
           className="featured-preview"
           key={currentProject.title}
-          initial={{ opacity: 0, x: 24 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -24 }}
+          exit={{ opacity: 0, x: -20 }}
           transition={{
-            duration: 0.35,
+            duration: 0.3,
             ease: "easeOut",
           }}
         >
@@ -160,7 +161,7 @@ export default function Projects() {
                 }`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.25 }}
+                transition={{ duration: 0.2 }}
               />
             </div>
 
@@ -172,11 +173,11 @@ export default function Projects() {
                   onClick={showPrevImage}
                   aria-label="Previous screenshot"
                 >
-                  ←
+                  <FiChevronLeft size={16} />
                 </button>
 
                 <span className="preview-counter">
-                  {imageIndex + 1}/{screenshots.length}
+                  {imageIndex + 1} / {screenshots.length}
                 </span>
 
                 <button
@@ -185,7 +186,7 @@ export default function Projects() {
                   onClick={showNextImage}
                   aria-label="Next screenshot"
                 >
-                  →
+                  <FiChevronRight size={16} />
                 </button>
               </div>
             ) : null}
@@ -221,7 +222,8 @@ export default function Projects() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  GitHub
+                  <FiGithub size={16} />
+                  <span>GitHub</span>
                 </a>
               ) : null}
 
@@ -232,7 +234,8 @@ export default function Projects() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Live Demo
+                  <FiExternalLink size={16} />
+                  <span>Live Demo</span>
                 </a>
               ) : null}
             </div>
@@ -247,7 +250,8 @@ export default function Projects() {
               onClick={showPrev}
               aria-label="Previous project"
             >
-              ← Prev
+              <FiChevronLeft size={16} />
+              <span>Prev</span>
             </button>
 
             <button
@@ -256,7 +260,8 @@ export default function Projects() {
               onClick={showNext}
               aria-label="Next project"
             >
-              Next →
+              <span>Next</span>
+              <FiChevronRight size={16} />
             </button>
           </div>
 
