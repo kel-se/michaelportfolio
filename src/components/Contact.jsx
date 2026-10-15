@@ -19,7 +19,7 @@ const contactLinks = [
   {
     label: "LinkedIn",
     value: "linkedin.com/in/michael-kel",
-    href: "https://www.linkedin.com",
+    href: "https://www.linkedin.com/in/michael-angelo-torre-068b35439/",
     icon: FiLinkedin,
   },
   {
