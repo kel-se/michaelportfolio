@@ -108,7 +108,7 @@ export default function Hero() {
               </a>
 
               <a
-                href="#"
+                href="https://www.linkedin.com/in/michael-angelo-torre-068b35439/"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn Profile"
