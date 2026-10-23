@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiExternalLink, FiGithub } from "react-icons/fi";
+import { FaCode, FaDatabase, FaKey, FaReact, FaServer } from "react-icons/fa";
 import "../styles/Projects.css";
 
 const GITHUB_USERNAME = "kel-se";
@@ -49,7 +50,15 @@ const projects = [
       "SpendWise account registration page",
       "SpendWise sign-in page",
     ],
-    techStack: [],
+    techStack: [
+      { name: "React", icon: FaReact },
+      { name: "TypeScript", icon: FaCode },
+      { name: "ASP.NET Core", icon: FaServer },
+      { name: "C#", icon: FaCode },
+      { name: "PostgreSQL", icon: FaDatabase },
+      { name: "Entity Framework Core", icon: FaDatabase },
+      { name: "JWT", icon: FaKey },
+    ],
     github: "https://github.com/kel-se/spendwise",
     githubLabel: "GitHub Repository",
     live: "https://chael-dev-spendwise.vercel.app/",
@@ -227,14 +236,17 @@ export default function Projects() {
             </p>
 
             <div className="tech-stack">
-              {currentProject.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="tech-chip"
-                >
-                  {tech}
-                </span>
-              ))}
+              {currentProject.techStack.map((tech) => {
+                const TechIcon = typeof tech === "string" ? null : tech.icon;
+                const techName = typeof tech === "string" ? tech : tech.name;
+
+                return (
+                  <span key={techName} className="tech-chip">
+                    {TechIcon ? <TechIcon aria-hidden="true" /> : null}
+                    {techName}
+                  </span>
+                );
+              })}
             </div>
 
             <div className="project-actions">
