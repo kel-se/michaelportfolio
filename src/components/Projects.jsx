@@ -33,6 +33,28 @@ const projects = [
     live: null,
   },
   {
+    title: "SpendWise",
+    repo: "spendwise",
+    description:
+      "SpendWise is a personal finance tracking web application designed to help users manage their transactions, track expenses, organize spending by category, and gain a clearer overview of their finances.",
+    screenshots: [
+      "/spendwise.png",
+      "/spendwise1.png",
+      "/spendwise2.png",
+      "/spendwise3.png",
+    ],
+    screenshotAlt: [
+      "SpendWise landing page with a financial overview dashboard preview",
+      "SpendWise landing page showing its features and closing call to action",
+      "SpendWise account registration page",
+      "SpendWise sign-in page",
+    ],
+    techStack: [],
+    github: "https://github.com/kel-se/spendwise",
+    githubLabel: "GitHub Repository",
+    live: "https://chael-dev-spendwise.vercel.app/",
+  },
+  {
     title: "Dormly",
     repo: "Dormly",
     description:
@@ -156,9 +178,10 @@ export default function Projects() {
               <motion.img
                 key={`${currentProject.title}-${imageIndex}`}
                 src={screenshots[imageIndex] || "/wip.png"}
-                alt={`${currentProject.title} screenshot ${
-                  imageIndex + 1
-                }`}
+                alt={
+                  currentProject.screenshotAlt?.[imageIndex] ||
+                  `${currentProject.title} screenshot ${imageIndex + 1}`
+                }
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
@@ -223,7 +246,7 @@ export default function Projects() {
                   rel="noreferrer"
                 >
                   <FiGithub size={16} />
-                  <span>GitHub</span>
+                  <span>{currentProject.githubLabel || "GitHub"}</span>
                 </a>
               ) : null}
 
