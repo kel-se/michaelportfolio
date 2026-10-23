@@ -64,10 +64,6 @@
     padding: 60px 30px;
   }
 
-  .hero {
-    padding: 40px 30px;
-  }
-
   .hero-container {
     flex-direction: column-reverse;
     text-align: center;
@@ -78,13 +74,7 @@
     justify-content: center;
   }
 
-  .description {
-    margin: 15px auto;
-  }
-
-  .social-icons,
-  .tech-icons,
-  .skills-grid {
+  .tech-icons {
     justify-content: center;
   }
 
@@ -143,18 +133,12 @@
     padding: 60px 20px;
   }
 
-  .hero {
-    padding: 50px 20px;
-    min-height: auto;
-  }
-
   .hero-text h2 {
     font-size: 34px;
   }
 
-  .hero-image img {
-    width: 260px;
-    height: 260px;
+  .hero-container {
+    flex-direction: column;
   }
 
   .grid {
@@ -202,17 +186,8 @@
     font-size: 28px;
   }
 
-  .hero-image img {
-    width: 220px;
-    height: 220px;
-  }
-
   .wave {
     font-size: 2rem;
-  }
-
-  .skill-item {
-    font-size: 12px;
   }
 
   .about-icons div {
@@ -261,20 +236,13 @@
     font-size: 0.85rem;
   }
 
-  section,
-  .hero {
+  section {
     padding: 50px 20px;
   }
 
   .hero-text h2 {
     font-size: 31px;
     line-height: 1.25;
-  }
-
-  .hero-image img {
-    width: 240px;
-    height: 240px;
-    border-radius: 26% / 21%;
   }
 
   .wave {
@@ -297,9 +265,8 @@
     font-size: 0.8rem;
   }
 
-  .skill-item {
-    padding: 7px 11px;
-    font-size: 12px;
+  .skills-grid {
+    grid-template-columns: 1fr;
   }
 
   .about-icons div {
