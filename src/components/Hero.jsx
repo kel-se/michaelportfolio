@@ -89,7 +89,7 @@ export default function Hero() {
             </h1>
 
             <p className="subtitle subtitle-primary">
-              Software Engineer | Aspiring LLM Engineer
+              Aspiring Software Engineer | Full-Stack Developer
             </p>
 
             <p className="description">
